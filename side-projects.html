@@ -25,7 +25,6 @@
   </main>
 
   <script src="js/data/side-projects.js"></script>
-  <script src="js/overlay.js"></script>
   <script src="js/grid.js"></script>
   <script src="js/nav.js"></script>
   <script>
@@ -33,7 +32,8 @@
       renderGrid(
         document.getElementById('project-grid'),
         sideProjects,
-        'images/archive/'
+        'images/archive/',
+        { showLabels: true, source: 'side-projects' }
       );
     });
   </script>

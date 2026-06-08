@@ -3,10 +3,10 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Archive — Thomas Le Bas</title>
+  <title>Project — Thomas Le Bas</title>
   <link rel="stylesheet" href="css/style.css">
 </head>
-<body data-page="archive">
+<body>
   <header class="site-header">
     <a href="index.html" class="site-name">Thomas Le Bas</a>
     <nav>
@@ -19,24 +19,11 @@
     </nav>
   </header>
 
-  <main>
-    <h1 class="page-heading">Archive</h1>
-    <p class="page-intro">Earlier visual communication work from my graphic design practice.</p>
-    <div id="project-grid" class="project-grid"></div>
-  </main>
+  <main id="project-detail"></main>
 
   <script src="js/data/archive.js"></script>
-  <script src="js/grid.js"></script>
+  <script src="js/data/side-projects.js"></script>
+  <script src="js/project.js"></script>
   <script src="js/nav.js"></script>
-  <script>
-    document.addEventListener('DOMContentLoaded', function () {
-      renderGrid(
-        document.getElementById('project-grid'),
-        archiveProjects,
-        'images/archive/',
-        { showLabels: false, source: 'archive' }
-      );
-    });
-  </script>
 </body>
 </html>

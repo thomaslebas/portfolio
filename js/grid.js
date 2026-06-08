@@ -1,10 +1,14 @@
-function renderGrid(container, projects, imageBasePath) {
+function renderGrid(container, projects, imageBasePath, options) {
   if (!container || !projects) return;
 
-  projects.forEach(function (project) {
-    var card = document.createElement('button');
+  var opts = options || {};
+  var showLabels = opts.showLabels !== false;
+  var source = opts.source || 'archive';
+
+  projects.forEach(function (project, index) {
+    var card = document.createElement('a');
     card.className = 'project-card';
-    card.type = 'button';
+    card.href = 'project.html?source=' + encodeURIComponent(source) + '&id=' + index;
     card.setAttribute('aria-label', 'View ' + project.title);
 
     if (project.thumbnail) {
@@ -20,14 +24,12 @@ function renderGrid(container, projects, imageBasePath) {
       card.appendChild(placeholder);
     }
 
-    var title = document.createElement('p');
-    title.className = 'project-card-title';
-    title.textContent = project.title;
-    card.appendChild(title);
-
-    card.addEventListener('click', function () {
-      openOverlay(project, imageBasePath);
-    });
+    if (showLabels) {
+      var title = document.createElement('p');
+      title.className = 'project-card-title';
+      title.textContent = project.title;
+      card.appendChild(title);
+    }
 
     container.appendChild(card);
   });
