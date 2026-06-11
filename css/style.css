@@ -329,11 +329,33 @@ main {
 
 /* Project detail */
 
+.project-layout {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  column-gap: var(--space-md);
+  row-gap: var(--space-md);
+  align-items: start;
+}
+
 .project-back {
-  display: inline-block;
+  grid-column: 1 / span 3;
+  justify-self: start;
+  width: fit-content;
   font-size: var(--font-size-body);
   color: var(--color-muted);
-  margin-bottom: var(--space-md);
+}
+
+.project-back-arrow {
+  color: var(--color-muted);
+}
+
+.project-back-link {
+  color: var(--color-muted);
+}
+
+.project-content {
+  grid-column: 4 / span 8;
+  margin-bottom: var(--space-lg);
 }
 
 .project-title {
@@ -347,7 +369,6 @@ main {
 .project-description {
   font-size: var(--font-size-body);
   margin-bottom: var(--space-sm);
-  max-width: 40rem;
 }
 
 .project-credit,
@@ -358,12 +379,20 @@ main {
 }
 
 .project-year {
-  margin-bottom: var(--space-md);
+  margin-bottom: 0;
+}
+
+.project-images {
+  grid-column: 1 / -1;
 }
 
 .project-images img {
   width: 100%;
   margin-bottom: var(--space-sm);
+}
+
+.project-images img:last-child {
+  margin-bottom: 0;
 }
 
 /* Grid */
@@ -444,7 +473,7 @@ main {
 
 @media (max-width: 640px) {
   :root {
-    --font-size-heading: 3em;
+    --font-size-heading: 2.7em;
   }
 
   .site-header {
@@ -452,25 +481,46 @@ main {
     align-items: center;
   }
 
+  .site-header .site-name {
+    padding-bottom: 0;
+  }
+
+  .site-header .site-name::after {
+    bottom: -4px;
+  }
+
   .nav-toggle {
-    display: block;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     margin-left: auto;
+    padding: 0;
+    width: 1.25rem;
+    height: var(--font-size-body);
+    line-height: 0;
   }
 
   .site-header nav {
-    display: none;
+    display: grid;
+    grid-template-rows: 0fr;
     width: 100%;
     order: 3;
+    transition: grid-template-rows 0.25s ease;
   }
 
   .site-header nav.is-open {
-    display: block;
+    grid-template-rows: 1fr;
   }
 
   .site-nav {
     flex-direction: column;
+    flex-wrap: nowrap;
+    align-items: flex-start;
+    width: 100%;
     gap: var(--space-sm);
     padding-top: var(--space-sm);
+    overflow: hidden;
+    min-height: 0;
   }
 
   .project-grid {
@@ -481,5 +531,10 @@ main {
     grid-template-columns: 1fr;
     gap: 0;
     padding: var(--space-sm) 0;
+  }
+
+  .project-back,
+  .project-content {
+    grid-column: 1 / -1;
   }
 }

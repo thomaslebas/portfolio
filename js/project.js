@@ -14,7 +14,7 @@
   };
 
   var collections = {
-    archive: typeof archiveProjects !== 'undefined' ? archiveProjects : [],
+    archive: sortProjectsByYear(typeof archiveProjects !== 'undefined' ? archiveProjects : []),
     'side-projects': typeof sideProjects !== 'undefined' ? sideProjects : []
   };
 
@@ -38,7 +38,8 @@
 
   document.title = project.title + ' — Thomas Le Bas';
 
-  var html = '<a class="project-back" href="' + backUrls[source] + '">← ' + backLabels[source] + '</a>';
+  var html = '<div class="project-back"><span class="project-back-arrow" aria-hidden="true">←</span> <a class="project-back-link" href="' + backUrls[source] + '">' + backLabels[source] + '</a></div>';
+  html += '<div class="project-content">';
   html += '<h1 class="project-title">' + escapeHtml(project.title) + '</h1>';
 
   if (project.description) {
@@ -52,6 +53,8 @@
   if (project.year) {
     html += '<p class="project-year">' + escapeHtml(project.year) + '</p>';
   }
+
+  html += '</div>';
 
   if (project.images && project.images.length) {
     html += '<div class="project-images">';

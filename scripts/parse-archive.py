@@ -76,7 +76,23 @@ def parse_projects(html: str) -> list[dict]:
             }
         )
 
-    return projects
+    return sorted(projects, key=sort_year, reverse=True)
+
+
+def sort_year(project: dict) -> int:
+    year = project.get("year") or ""
+    if not year:
+        return 0
+
+    range_match = re.match(r"^(\d{4})[–-](\d{2,4})$", year)
+    if range_match:
+        start, end = range_match.groups()
+        if len(end) == 2:
+            end = start[:2] + end
+        return int(end)
+
+    years = [int(y) for y in re.findall(r"\d{4}", year)]
+    return max(years) if years else 0
 
 
 def main() -> None:

@@ -29,13 +29,14 @@
   </main>
 
   <script src="js/data/archive.js"></script>
+  <script src="js/sort-projects.js"></script>
   <script src="js/grid.js"></script>
   <script src="js/nav.js"></script>
   <script>
     document.addEventListener('DOMContentLoaded', function () {
       renderGrid(
         document.getElementById('project-grid'),
-        archiveProjects,
+        sortProjectsByYear(archiveProjects),
         'images/archive/',
         { source: 'archive' }
       );
