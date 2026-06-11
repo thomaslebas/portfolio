@@ -9,10 +9,13 @@
 <body data-page="archive">
   <header class="site-header">
     <a href="index.html" class="site-name">Thomas Le Bas</a>
-    <nav>
+    <button type="button" class="nav-toggle" aria-expanded="false" aria-controls="site-nav" aria-label="Open menu">
+      <span class="nav-toggle-icon" aria-hidden="true"></span>
+    </button>
+    <nav id="site-nav">
       <ul class="site-nav">
         <li><a href="case-studies.html">Case studies</a></li>
-        <li><a href="side-projects.html">Side projects</a></li>
+        <li><a href="side-projects.html">Side quests</a></li>
         <li><a href="archive.html">Archive</a></li>
         <li><a href="about.html">About</a></li>
       </ul>
@@ -34,7 +37,7 @@
         document.getElementById('project-grid'),
         archiveProjects,
         'images/archive/',
-        { showLabels: false, source: 'archive' }
+        { source: 'archive' }
       );
     });
   </script>

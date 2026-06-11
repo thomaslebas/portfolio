@@ -10,7 +10,7 @@
 
   var backLabels = {
     archive: 'Archive',
-    'side-projects': 'Side projects'
+    'side-projects': 'Side quests'
   };
 
   var collections = {
@@ -25,6 +25,10 @@
 
   if (!source || !collections[source] || isNaN(id) || id < 0 || id >= collections[source].length) {
     window.location.replace('archive.html');
+    return;
+  }
+
+  if (typeof caseStudiesAuth !== 'undefined' && !caseStudiesAuth.guardProjectSource(source)) {
     return;
   }
 

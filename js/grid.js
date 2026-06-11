@@ -2,7 +2,7 @@ function renderGrid(container, projects, imageBasePath, options) {
   if (!container || !projects) return;
 
   var opts = options || {};
-  var showLabels = opts.showLabels !== false;
+  var showDescriptor = opts.showDescriptor === true;
   var source = opts.source || 'archive';
 
   projects.forEach(function (project, index) {
@@ -24,11 +24,18 @@ function renderGrid(container, projects, imageBasePath, options) {
       card.appendChild(placeholder);
     }
 
-    if (showLabels) {
+    if (showDescriptor) {
       var title = document.createElement('p');
       title.className = 'project-card-title';
       title.textContent = project.title;
       card.appendChild(title);
+
+      if (project.descriptor) {
+        var descriptor = document.createElement('p');
+        descriptor.className = 'project-card-descriptor';
+        descriptor.textContent = project.descriptor;
+        card.appendChild(descriptor);
+      }
     }
 
     container.appendChild(card);

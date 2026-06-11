@@ -9,10 +9,13 @@
 <body data-page="case-studies">
   <header class="site-header">
     <a href="index.html" class="site-name">Thomas Le Bas</a>
-    <nav>
+    <button type="button" class="nav-toggle" aria-expanded="false" aria-controls="site-nav" aria-label="Open menu">
+      <span class="nav-toggle-icon" aria-hidden="true"></span>
+    </button>
+    <nav id="site-nav">
       <ul class="site-nav">
         <li><a href="case-studies.html">Case studies</a></li>
-        <li><a href="side-projects.html">Side projects</a></li>
+        <li><a href="side-projects.html">Side quests</a></li>
         <li><a href="archive.html">Archive</a></li>
         <li><a href="about.html">About</a></li>
       </ul>
@@ -20,10 +23,17 @@
   </header>
 
   <main>
-    <h1 class="page-heading">Case studies</h1>
-    <p class="page-placeholder">Coming soon.</p>
+    <div id="case-studies-content" hidden>
+      <h1 class="page-heading">Case studies</h1>
+      <p class="page-placeholder">Coming soon.</p>
+    </div>
   </main>
 
+  <script src="js/auth-config.js"></script>
+  <script src="js/auth.js"></script>
   <script src="js/nav.js"></script>
+  <script>
+    caseStudiesAuth.requireAuth(document.getElementById('case-studies-content'));
+  </script>
 </body>
 </html>
