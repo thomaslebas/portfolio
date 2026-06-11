@@ -177,12 +177,24 @@ main {
 
 /* Homepage */
 
+.home-layout {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  column-gap: var(--space-md);
+  align-items: start;
+}
+
 .home-intro {
+  grid-column: 4 / span 9;
   font-size: var(--font-size-heading);
   font-weight: var(--font-weight-heading);
   line-height: var(--line-height-heading);
   letter-spacing: var(--letter-spacing-heading);
   margin-bottom: 18rem;
+}
+
+.home-layout > .home-section {
+  grid-column: 1 / -1;
 }
 
 .home-intro + .home-section {
@@ -191,6 +203,25 @@ main {
 
 .home-section {
   margin-top: var(--space-xl);
+}
+
+.home-section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: var(--space-md);
+  margin-bottom: var(--space-md);
+}
+
+.home-section-header .page-heading {
+  margin-bottom: 0;
+}
+
+.home-section-more {
+  font-size: var(--font-size-body);
+  font-weight: var(--font-weight-body);
+  white-space: nowrap;
+  flex-shrink: 0;
 }
 
 .home-section .page-heading {
@@ -589,7 +620,8 @@ h2.about-layout-heading {
   .project-back,
   .project-content,
   .about-layout-heading,
-  .about-layout-body {
+  .about-layout-body,
+  .home-intro {
     grid-column: 1 / -1;
   }
 }
