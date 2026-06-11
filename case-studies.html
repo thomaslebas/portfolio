@@ -25,15 +25,26 @@
   <main>
     <div id="case-studies-content" hidden>
       <h1 class="page-heading">Case studies</h1>
-      <p class="page-placeholder">Coming soon.</p>
+      <div id="project-grid" class="project-grid"></div>
     </div>
   </main>
 
+  <script src="js/data/case-studies.js"></script>
+  <script src="js/grid.js"></script>
   <script src="js/auth-config.js"></script>
   <script src="js/auth.js"></script>
   <script src="js/nav.js"></script>
   <script>
     caseStudiesAuth.requireAuth(document.getElementById('case-studies-content'));
+
+    document.addEventListener('DOMContentLoaded', function () {
+      renderGrid(
+        document.getElementById('project-grid'),
+        caseStudies,
+        'images/archive/',
+        { showDescriptor: true, source: 'case-studies' }
+      );
+    });
   </script>
 </body>
 </html>

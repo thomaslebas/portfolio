@@ -4,8 +4,10 @@ function renderGrid(container, projects, imageBasePath, options) {
   var opts = options || {};
   var showDescriptor = opts.showDescriptor === true;
   var source = opts.source || 'archive';
+  var limit = opts.limit;
+  var items = limit ? projects.slice(0, limit) : projects;
 
-  projects.forEach(function (project, index) {
+  items.forEach(function (project, index) {
     var card = document.createElement('a');
     card.className = 'project-card';
     card.href = 'project.html?source=' + encodeURIComponent(source) + '&id=' + index;

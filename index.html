@@ -24,8 +24,64 @@
 
   <main>
     <h1 class="home-intro">I am a designer who likes to work with people and technology to help make things that have a positive impact on the world.<br><br>Currently I am working as a Staff Product Designer for Lightspeed in London, UK.</h1>
+
+    <section class="home-section">
+      <h2 class="page-heading">Case studies</h2>
+      <div id="case-studies-grid" class="project-grid"></div>
+    </section>
+
+    <section class="home-section">
+      <h2 class="page-heading">Side quests</h2>
+      <div id="side-quests-grid" class="project-grid"></div>
+    </section>
+
+    <section class="home-section">
+      <h2 class="page-heading">Archive</h2>
+      <div id="archive-grid" class="project-grid"></div>
+    </section>
+
+    <section class="home-section about-layout">
+      <h2 class="about-layout-heading">Contact</h2>
+      <div class="about-layout-body">
+        <ul class="contact-list">
+          <li><a href="mailto:thomaslebas@gmail.com">thomaslebas@gmail.com</a></li>
+          <li><a href="https://instagram.com/thomaslebas" target="_blank" rel="noopener noreferrer">instagram.com/thomaslebas</a></li>
+          <li><a href="https://linkedin.com/in/thomaslebas" target="_blank" rel="noopener noreferrer">linkedin.com/in/thomaslebas</a></li>
+          <li><a href="https://medium.com/@thomaslebas" target="_blank" rel="noopener noreferrer">medium.com/@thomaslebas</a></li>
+        </ul>
+      </div>
+    </section>
   </main>
 
+  <script src="js/data/case-studies.js"></script>
+  <script src="js/data/side-projects.js"></script>
+  <script src="js/data/archive.js"></script>
+  <script src="js/sort-projects.js"></script>
+  <script src="js/grid.js"></script>
   <script src="js/nav.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      renderGrid(
+        document.getElementById('case-studies-grid'),
+        caseStudies,
+        'images/archive/',
+        { showDescriptor: true, source: 'case-studies', limit: 3 }
+      );
+
+      renderGrid(
+        document.getElementById('side-quests-grid'),
+        sideProjects,
+        'images/archive/',
+        { showDescriptor: true, source: 'side-projects', limit: 3 }
+      );
+
+      renderGrid(
+        document.getElementById('archive-grid'),
+        sortProjectsByYear(archiveProjects),
+        'images/archive/',
+        { source: 'archive', limit: 3 }
+      );
+    });
+  </script>
 </body>
 </html>

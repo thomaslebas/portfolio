@@ -5,22 +5,26 @@
 
   var backUrls = {
     archive: 'archive.html',
-    'side-projects': 'side-projects.html'
+    'side-projects': 'side-projects.html',
+    'case-studies': 'case-studies.html'
   };
 
   var backLabels = {
     archive: 'Archive',
-    'side-projects': 'Side quests'
+    'side-projects': 'Side quests',
+    'case-studies': 'Case studies'
   };
 
   var collections = {
     archive: sortProjectsByYear(typeof archiveProjects !== 'undefined' ? archiveProjects : []),
-    'side-projects': typeof sideProjects !== 'undefined' ? sideProjects : []
+    'side-projects': typeof sideProjects !== 'undefined' ? sideProjects : [],
+    'case-studies': typeof caseStudies !== 'undefined' ? caseStudies : []
   };
 
   var imageBasePaths = {
     archive: 'images/archive/',
-    'side-projects': 'images/archive/'
+    'side-projects': 'images/archive/',
+    'case-studies': 'images/archive/'
   };
 
   if (!source || !collections[source] || isNaN(id) || id < 0 || id >= collections[source].length) {
