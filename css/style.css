@@ -473,7 +473,7 @@ main {
 
 @media (max-width: 640px) {
   :root {
-    --font-size-heading: 2.7em;
+    --font-size-heading: 2.5em;
   }
 
   .site-header {
