@@ -20,6 +20,10 @@
   --space-md: 2rem;
   --space-lg: 4rem;
   --space-xl: 6rem;
+  --link-pill-padding-y: 0.25em;
+  --link-pill-padding-x: 0.6em;
+  --color-link-highlight: #ebebeb;
+  --color-site-name-highlight: #fde8e8;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -29,6 +33,8 @@
     --color-muted: #8a8a8a;
     --color-accent: #d94040;
     --color-border: #333333;
+    --color-link-highlight: #2a2a2a;
+    --color-site-name-highlight: #3d2222;
   }
 }
 
@@ -59,27 +65,28 @@ body {
 a {
   color: inherit;
   text-decoration: none;
-  position: relative;
-  display: inline-block;
-  line-height: 1;
-  padding-bottom: 4px;
 }
 
-a::after {
-  content: '';
-  position: absolute;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  height: 1px;
-  background-color: transparent;
+a:not(.project-card),
+.project-card-title,
+.project-card-descriptor {
+  display: inline;
+  line-height: 1.6;
+  padding: var(--link-pill-padding-y) var(--link-pill-padding-x);
+  margin: calc(-1 * var(--link-pill-padding-y)) calc(-1 * var(--link-pill-padding-x));
+  border: 1px solid transparent;
+  border-radius: 999px;
+  box-decoration-break: clone;
+  -webkit-box-decoration-break: clone;
+  background-image: linear-gradient(transparent, transparent);
+  background-size: 100% 100%;
+  transition: background-image 0.15s ease, border-color 0.15s ease;
 }
 
-a:hover::after {
-  background-color: currentColor;
-}
-
-a:hover {
+a:not(.project-card):hover,
+.project-card:hover .project-card-title,
+.project-card:hover .project-card-descriptor {
+  background-image: linear-gradient(var(--color-link-highlight), var(--color-link-highlight));
   text-decoration: none;
 }
 
@@ -101,6 +108,12 @@ img {
   padding: var(--space-md) var(--space-sm);
 }
 
+.site-name-cell,
+.home-section-more-cell,
+.cv-org-cell {
+  min-width: 0;
+}
+
 .site-name {
   font-size: var(--font-size-body);
   font-weight: var(--font-weight-body);
@@ -108,12 +121,15 @@ img {
   white-space: nowrap;
 }
 
-.site-name:hover {
+.site-name:hover,
+a.site-name:hover {
   color: var(--color-accent);
+  background-image: linear-gradient(var(--color-site-name-highlight), var(--color-site-name-highlight));
 }
 
-.site-nav a.active::after {
-  background-color: currentColor;
+.site-nav a.active,
+body[data-page="home"] .site-name {
+  border: 1px solid currentColor;
 }
 
 .nav-toggle {
@@ -305,11 +321,14 @@ main {
   background: none;
   border: 1px solid var(--color-border);
   padding: var(--space-xs) var(--space-sm);
+  border-radius: 999px;
   cursor: pointer;
+  transition: background-color 0.15s ease;
 }
 
 .auth-gate-submit:hover {
-  text-decoration: underline;
+  background-color: var(--color-link-highlight);
+  text-decoration: none;
 }
 
 /* About */
@@ -408,6 +427,7 @@ h2.about-layout-heading {
 
 .contact-list a {
   font-size: var(--font-size-body);
+  overflow-wrap: anywhere;
 }
 
 /* Project detail */
@@ -492,21 +512,23 @@ h2.about-layout-heading {
   width: 100%;
   text-align: left;
   color: inherit;
-  padding-bottom: 0;
+  padding: 0;
+  margin: 0;
+  border: none;
+  border-radius: 0;
   line-height: inherit;
+  box-decoration-break: initial;
+  -webkit-box-decoration-break: initial;
+  background-image: none;
 }
 
-.project-card::after {
-  display: none;
+.project-card:hover {
+  background-color: transparent;
+  background-image: none;
 }
 
 .project-card-title,
 .project-card-descriptor {
-  position: relative;
-  display: block;
-  width: fit-content;
-  line-height: 1;
-  padding-bottom: 4px;
   font-size: var(--font-size-body);
   font-weight: var(--font-weight-body);
 }
@@ -518,22 +540,6 @@ h2.about-layout-heading {
 .project-card-descriptor {
   color: var(--color-muted);
   margin-top: var(--space-xs);
-}
-
-.project-card-title::after,
-.project-card-descriptor::after {
-  content: '';
-  position: absolute;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  height: 1px;
-  background-color: transparent;
-}
-
-.project-card:hover .project-card-title::after,
-.project-card:hover .project-card-descriptor::after {
-  background-color: currentColor;
 }
 
 .project-card-image {
@@ -563,14 +569,6 @@ h2.about-layout-heading {
   .site-header {
     flex-wrap: wrap;
     align-items: center;
-  }
-
-  .site-header .site-name {
-    padding-bottom: 0;
-  }
-
-  .site-header .site-name::after {
-    bottom: -4px;
   }
 
   .nav-toggle {
