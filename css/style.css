@@ -114,6 +114,9 @@ img {
 /* Header */
 
 .site-header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
   display: flex;
   justify-content: space-between;
   align-items: baseline;
@@ -121,6 +124,7 @@ img {
   max-width: var(--max-width);
   margin: 0 auto;
   padding: var(--space-md) var(--space-sm);
+  background-color: var(--color-bg);
 }
 
 .site-name-cell,
@@ -133,18 +137,34 @@ img {
 .site-name {
   font-size: var(--font-size-body);
   font-weight: var(--font-weight-body);
-  color: var(--color-accent);
   white-space: nowrap;
 }
 
-.site-name:hover,
-a.site-name:hover {
+.site-header a.site-name {
   color: var(--color-accent);
+  border-color: var(--color-accent);
+  background-image: linear-gradient(transparent, transparent);
+}
+
+body[data-page="home"] .site-header a.site-name {
+  color: #ffffff;
+  border-color: var(--color-accent);
+  background-image: linear-gradient(var(--color-accent), var(--color-accent));
+}
+
+.site-header a.site-name:hover {
+  color: var(--color-accent);
+  border-color: var(--color-accent);
   background-image: linear-gradient(var(--color-site-name-highlight), var(--color-site-name-highlight));
 }
 
-.site-nav a.active,
-body[data-page="home"] .site-name {
+body[data-page="home"] .site-header a.site-name:hover {
+  color: #ffffff;
+  border-color: var(--color-accent);
+  background-image: linear-gradient(var(--color-accent), var(--color-accent));
+}
+
+.site-nav a.active {
   border-color: currentColor;
 }
 
@@ -648,6 +668,12 @@ a.project-card:hover {
   .site-header {
     flex-wrap: wrap;
     align-items: center;
+    row-gap: 0;
+    column-gap: var(--space-md);
+  }
+
+  .site-header a.site-name {
+    margin-left: 0;
   }
 
   .nav-toggle {
@@ -664,16 +690,14 @@ a.project-card:hover {
   .site-header nav {
     width: 100%;
     order: 3;
+    min-height: 0;
   }
 
   .site-nav-inner {
-    max-height: 0;
+    height: 0;
+    min-height: 0;
     overflow: hidden;
-    transition: max-height 0.25s ease;
-  }
-
-  .site-header nav.is-open .site-nav-inner {
-    max-height: 24rem;
+    transition: height 0.25s ease;
   }
 
   .site-nav {
@@ -682,7 +706,7 @@ a.project-card:hover {
     align-items: flex-start;
     width: 100%;
     gap: var(--space-sm);
-    padding-top: calc(var(--space-sm) + var(--link-pill-padding-y) + 1px);
+    padding-top: calc(var(--space-md) + var(--space-sm) + var(--link-pill-padding-y) + 1px);
     padding-right: var(--link-pill-padding-x);
     padding-bottom: var(--link-pill-padding-y);
     padding-left: 2em;
