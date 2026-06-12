@@ -32,7 +32,9 @@
         <h2 class="page-heading">Case studies</h2>
         <span class="home-section-more-cell"><a class="home-section-more" href="case-studies.html">More →</a></span>
       </div>
-      <div id="case-studies-grid" class="project-grid"></div>
+      <div class="project-carousel">
+        <div id="case-studies-grid" class="project-grid"></div>
+      </div>
     </section>
 
     <section class="home-section">
@@ -40,7 +42,9 @@
         <h2 class="page-heading">Side quests</h2>
         <span class="home-section-more-cell"><a class="home-section-more" href="side-projects.html">More →</a></span>
       </div>
-      <div id="side-quests-grid" class="project-grid"></div>
+      <div class="project-carousel">
+        <div id="side-quests-grid" class="project-grid"></div>
+      </div>
     </section>
 
     <section class="home-section">
@@ -48,7 +52,9 @@
         <h2 class="page-heading">Archive</h2>
         <span class="home-section-more-cell"><a class="home-section-more" href="archive.html">More →</a></span>
       </div>
-      <div id="archive-grid" class="project-grid"></div>
+      <div class="project-carousel">
+        <div id="archive-grid" class="project-grid"></div>
+      </div>
     </section>
 
     <section class="home-section about-layout">
@@ -76,21 +82,21 @@
         document.getElementById('case-studies-grid'),
         caseStudies,
         'images/archive/',
-        { showDescriptor: true, source: 'case-studies', limit: 3 }
+        { showDescriptor: true, source: 'case-studies' }
       );
 
       renderGrid(
         document.getElementById('side-quests-grid'),
         sideProjects,
         'images/archive/',
-        { showDescriptor: true, source: 'side-projects', limit: 3 }
+        { showDescriptor: true, source: 'side-projects' }
       );
 
       renderGrid(
         document.getElementById('archive-grid'),
         sortProjectsByYear(archiveProjects),
         'images/archive/',
-        { source: 'archive', limit: 3 }
+        { source: 'archive' }
       );
     });
   </script>

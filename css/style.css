@@ -595,6 +595,45 @@ a.project-card:hover {
   opacity: 0.1;
 }
 
+/* Home — desktop shows top 3 per section; mobile uses carousels for all */
+
+.home-layout .home-section .project-card:nth-child(n + 4) {
+  display: none;
+}
+
+@media (max-width: 640px) {
+  .home-layout .home-section .project-carousel {
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    scroll-padding-inline: var(--space-sm);
+    margin-right: calc(-1 * var(--space-sm));
+    padding-right: var(--space-sm);
+  }
+
+  .home-layout .home-section .project-carousel::-webkit-scrollbar {
+    display: none;
+  }
+
+  .home-layout .home-section .project-grid {
+    display: flex;
+    gap: var(--space-sm);
+    width: max-content;
+    padding-right: var(--space-sm);
+  }
+
+  .home-layout .home-section .project-card {
+    display: block;
+    flex: 0 0 min(78vw, 16rem);
+    scroll-snap-align: start;
+  }
+
+  .home-layout .home-section .project-card:nth-child(n + 4) {
+    display: block;
+  }
+}
+
 @media (max-width: 900px) {
   .project-grid {
     grid-template-columns: repeat(2, 1fr);
@@ -643,10 +682,10 @@ a.project-card:hover {
     align-items: flex-start;
     width: 100%;
     gap: var(--space-sm);
-    padding:
-      calc(var(--space-sm) + var(--link-pill-padding-y) + 1px)
-      var(--link-pill-padding-x)
-      var(--link-pill-padding-y);
+    padding-top: calc(var(--space-sm) + var(--link-pill-padding-y) + 1px);
+    padding-right: var(--link-pill-padding-x);
+    padding-bottom: var(--link-pill-padding-y);
+    padding-left: 2em;
   }
 
   .site-header nav:not(.is-open) .site-nav a.active {
