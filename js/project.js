@@ -42,7 +42,7 @@
 
   document.title = project.title + ' — Thomas Le Bas';
 
-  var html = '<div class="project-back"><span class="project-back-arrow" aria-hidden="true">←</span> <a class="project-back-link" href="' + backUrls[source] + '">' + backLabels[source] + '</a></div>';
+  var html = '<span class="project-back-cell"><a class="project-back" href="' + backUrls[source] + '"><span class="project-back-arrow" aria-hidden="true">←</span> ' + backLabels[source] + '</a></span>';
   html += '<div class="project-content">';
   html += '<h1 class="project-title">' + escapeHtml(project.title) + '</h1>';
 
