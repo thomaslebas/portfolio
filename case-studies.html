@@ -34,6 +34,7 @@
   </main>
 
   <script src="js/data/case-studies.js"></script>
+  <script src="js/project-content.js"></script>
   <script src="js/grid.js"></script>
   <script src="js/auth-config.js"></script>
   <script src="js/auth.js"></script>
@@ -42,12 +43,16 @@
     caseStudiesAuth.requireAuth(document.getElementById('case-studies-content'));
 
     document.addEventListener('DOMContentLoaded', function () {
-      renderGrid(
-        document.getElementById('project-grid'),
-        caseStudies,
-        'images/archive/',
-        { showDescriptor: true, source: 'case-studies' }
-      );
+      Promise.all(caseStudies.map(function (entry) {
+        return resolveProjectContent(entry, 'case-studies');
+      })).then(function (resolved) {
+        renderGrid(
+          document.getElementById('project-grid'),
+          resolved,
+          'images/archive/',
+          { showDescriptor: true, source: 'case-studies' }
+        );
+      });
     });
   </script>
 </body>

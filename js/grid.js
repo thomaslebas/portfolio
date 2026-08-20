@@ -32,6 +32,13 @@ function renderGrid(container, projects, imageBasePath, options) {
         link.appendChild(placeholder);
       }
 
+      if (project.year) {
+        var year = document.createElement('p');
+        year.className = 'project-card-year';
+        year.textContent = project.year;
+        link.appendChild(year);
+      }
+
       var title = document.createElement('p');
       title.className = 'project-card-title';
       title.textContent = project.title;

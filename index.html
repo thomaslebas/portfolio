@@ -76,23 +76,39 @@
   <script src="js/data/side-projects.js"></script>
   <script src="js/data/archive.js"></script>
   <script src="js/sort-projects.js"></script>
+  <script src="js/project-content.js"></script>
   <script src="js/grid.js"></script>
   <script src="js/nav.js"></script>
   <script>
     document.addEventListener('DOMContentLoaded', function () {
-      renderGrid(
-        document.getElementById('case-studies-grid'),
-        caseStudies,
-        'images/archive/',
-        { showDescriptor: true, source: 'case-studies' }
-      );
+      // Case studies are password protected on their own pages, so the home
+      // page teaser shows real titles but strips the descriptor (which tends
+      // to carry client/context details) to avoid exposing more than a name.
+      Promise.all(caseStudies.map(function (entry) {
+        return resolveProjectContent(entry, 'case-studies');
+      })).then(function (resolved) {
+        var homeCaseStudies = resolved.map(function (project) {
+          return Object.assign({}, project, { descriptor: undefined });
+        });
 
-      renderGrid(
-        document.getElementById('side-quests-grid'),
-        sideProjects,
-        'images/archive/',
-        { showDescriptor: true, source: 'side-projects' }
-      );
+        renderGrid(
+          document.getElementById('case-studies-grid'),
+          homeCaseStudies,
+          'images/archive/',
+          { showDescriptor: true, source: 'case-studies' }
+        );
+      });
+
+      Promise.all(sideProjects.map(function (entry) {
+        return resolveProjectContent(entry, 'side-projects');
+      })).then(function (resolved) {
+        renderGrid(
+          document.getElementById('side-quests-grid'),
+          resolved,
+          'images/archive/',
+          { showDescriptor: true, source: 'side-projects' }
+        );
+      });
 
       renderGrid(
         document.getElementById('archive-grid'),

@@ -32,16 +32,21 @@
   </main>
 
   <script src="js/data/side-projects.js"></script>
+  <script src="js/project-content.js"></script>
   <script src="js/grid.js"></script>
   <script src="js/nav.js"></script>
   <script>
     document.addEventListener('DOMContentLoaded', function () {
-      renderGrid(
-        document.getElementById('project-grid'),
-        sideProjects,
-        'images/archive/',
-        { showDescriptor: true, source: 'side-projects' }
-      );
+      Promise.all(sideProjects.map(function (entry) {
+        return resolveProjectContent(entry, 'side-projects');
+      })).then(function (resolved) {
+        renderGrid(
+          document.getElementById('project-grid'),
+          resolved,
+          'images/archive/',
+          { showDescriptor: true, source: 'side-projects' }
+        );
+      });
     });
   </script>
 </body>
