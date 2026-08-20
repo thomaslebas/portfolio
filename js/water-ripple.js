@@ -44,9 +44,25 @@
   var destroyed = false;
   var resizeTimeout = null;
 
-  // A single radial sine "wavelet" forms the water height field; the
-  // fragment shader displaces the text texture along its gradient so
-  // glyphs bend as if seen through a rippling water surface.
+  // Resting origin used when there's no mouse input yet (e.g. touch devices,
+  // or before the first mousemove) — same off-text placement as before.
+  var restingOriginX = 1.05;
+  var restingOriginY = 1.1;
+  var currentOriginX = restingOriginX;
+  var currentOriginY = restingOriginY;
+  var mouseClientX = null;
+  var mouseClientY = null;
+  var originSmoothing = 0.07;
+
+  document.addEventListener('mousemove', function (e) {
+    mouseClientX = e.clientX;
+    mouseClientY = e.clientY;
+  });
+
+  // A single radial sine "wavelet", centered on the (smoothed) cursor
+  // position, forms the water height field; the fragment shader displaces
+  // the text texture along its gradient so glyphs bend as if seen through
+  // a rippling water surface.
   var shaderCode = [
     'struct VertexOutput {',
     '  @builtin(position) position: vec4<f32>,',
@@ -71,7 +87,11 @@
     '  time: f32,',
     '  aspect: f32,',
     '  amplitude: f32,',
-    '  padding: f32,',
+    '  originX: f32,',
+    '  originY: f32,',
+    '  padding0: f32,',
+    '  padding1: f32,',
+    '  padding2: f32,',
     '};',
     '',
     '@group(0) @binding(0) var<uniform> uniforms: Uniforms;',
@@ -79,10 +99,11 @@
     '@group(0) @binding(2) var textSampler: sampler;',
     '',
     'fn rippleHeight(uv: vec2<f32>) -> f32 {',
-    '  var p: vec2<f32> = uv - vec2<f32>(1.05, 1.1);',
+    '  var p: vec2<f32> = uv - vec2<f32>(uniforms.originX, uniforms.originY);',
     '  p.x = p.x * uniforms.aspect;',
     '  let d: f32 = length(p);',
-    '  return sin(d * 24.0 - uniforms.time * 1.0) * exp(-d * 1.3);',
+    '  let core: f32 = smoothstep(0.0, 0.5, d);',
+    '  return core * sin(d * 6.0 - uniforms.time * 1.0) * exp(-d * 1.3);',
     '}',
     '',
     '@fragment',
@@ -216,7 +237,21 @@
     if (startTime === null) startTime = now;
     var t = (now - startTime) / 1000;
 
-    device.queue.writeBuffer(uniformBuffer, 0, new Float32Array([t, aspect, amplitude, 0]));
+    var targetX = restingOriginX;
+    var targetY = restingOriginY;
+    if (mouseClientX !== null) {
+      var rect = heading.getBoundingClientRect();
+      targetX = (mouseClientX - rect.left) / rect.width;
+      targetY = (mouseClientY - rect.top) / rect.height;
+    }
+    currentOriginX += (targetX - currentOriginX) * originSmoothing;
+    currentOriginY += (targetY - currentOriginY) * originSmoothing;
+
+    device.queue.writeBuffer(
+      uniformBuffer,
+      0,
+      new Float32Array([t, aspect, amplitude, currentOriginX, currentOriginY, 0, 0, 0])
+    );
 
     var encoder = device.createCommandEncoder();
     var view = gpuContext.getCurrentTexture().createView();
@@ -295,7 +330,7 @@
       });
 
       uniformBuffer = device.createBuffer({
-        size: 16,
+        size: 32,
         usage: GPUBufferUsage.UNIFORM | GPUBufferUsage.COPY_DST
       });
 
