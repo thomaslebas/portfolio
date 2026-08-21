@@ -1,4 +1,4 @@
-# Designing a vision for a wholesale marketplace
+# Designing a vision for a marketplace
 Year: 2025
 Subline: Turning a stalled vision into an executable, cross-product direction
 Meta: Design vision · Product strategy

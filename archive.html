@@ -28,22 +28,25 @@
 
   <main>
     <h1 class="page-heading">Archive</h1>
-    <p class="page-intro">Earlier visual communication work from my graphic design practice.</p>
     <div id="project-grid" class="project-grid"></div>
   </main>
 
   <script src="js/data/archive.js"></script>
-  <script src="js/sort-projects.js"></script>
+  <script src="js/project-content.js"></script>
   <script src="js/grid.js"></script>
   <script src="js/nav.js"></script>
   <script>
     document.addEventListener('DOMContentLoaded', function () {
-      renderGrid(
-        document.getElementById('project-grid'),
-        sortProjectsByYear(archiveProjects),
-        'images/archive/',
-        { source: 'archive' }
-      );
+      Promise.all(archiveProjects.map(function (entry) {
+        return resolveProjectContent(entry, 'archive');
+      })).then(function (resolved) {
+        renderGrid(
+          document.getElementById('project-grid'),
+          resolved,
+          '',
+          { source: 'archive' }
+        );
+      });
     });
   </script>
 </body>

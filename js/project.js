@@ -15,19 +15,13 @@
     'case-studies': 'Case studies'
   };
 
-  var collections = {
-    archive: sortProjectsByYear(typeof archiveProjects !== 'undefined' ? archiveProjects : []),
+  var rawCollections = {
+    archive: typeof archiveProjects !== 'undefined' ? archiveProjects : [],
     'side-projects': typeof sideProjects !== 'undefined' ? sideProjects : [],
     'case-studies': typeof caseStudies !== 'undefined' ? caseStudies : []
   };
 
-  var imageBasePaths = {
-    archive: 'images/archive/',
-    'side-projects': 'images/archive/',
-    'case-studies': 'images/case-studies/'
-  };
-
-  if (!source || !collections[source] || isNaN(id) || id < 0 || id >= collections[source].length) {
+  if (!source || !rawCollections[source] || isNaN(id) || id < 0 || id >= rawCollections[source].length) {
     window.location.replace('archive.html');
     return;
   }
@@ -37,15 +31,23 @@
   }
 
   var container = document.getElementById('project-detail');
-  var imageBasePath = imageBasePaths[source];
-  var entry = collections[source][id];
 
-  resolveProjectContent(entry, source).then(renderProject);
+  Promise.all(rawCollections[source].map(function (entry) {
+    return resolveProjectContent(entry, source);
+  })).then(function (resolved) {
+    var nextId = resolved.length > 1 ? (id + 1) % resolved.length : -1;
+    var nextProject = nextId >= 0 ? resolved[nextId] : null;
+    renderProject(resolved[id], nextId, nextProject);
+  });
 
-  function renderProject(project) {
+  function renderProject(project, nextId, nextProject) {
     document.title = project.title + ' — Thomas Le Bas';
 
     var html = '<span class="project-back-cell"><a class="project-back" href="' + backUrls[source] + '"><span class="project-back-arrow" aria-hidden="true">←</span> ' + backLabels[source] + '</a></span>';
+
+    if (nextProject) {
+      html += '<span class="project-next-top-cell"><a class="project-back project-next" href="project.html?source=' + encodeURIComponent(source) + '&id=' + nextId + '" aria-label="Next project"><span class="project-back-arrow" aria-hidden="true">→</span></a></span>';
+    }
 
     if (project.body && project.body.length) {
       var headBlocks = project.body.filter(function (block) {
@@ -81,10 +83,14 @@
       if (project.images && project.images.length) {
         html += '<div class="project-images">';
         project.images.forEach(function (src) {
-          html += '<img src="' + imageBasePath + src + '" alt="">';
+          html += '<img src="' + src + '" alt="">';
         });
         html += '</div>';
       }
+    }
+
+    if (nextProject) {
+      html += '<span class="project-next-cell"><a class="project-back project-next" href="project.html?source=' + encodeURIComponent(source) + '&id=' + nextId + '">Next: ' + escapeHtml(nextProject.title) + ' <span class="project-back-arrow" aria-hidden="true">→</span></a></span>';
     }
 
     container.innerHTML = html;

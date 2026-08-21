@@ -1,8 +1,10 @@
 # Sherlock
+
 Subline: Property viewing tool for buyers
+Meta: Native iOS app · Vibe coding
 
-Early 2026 I started to explore buying my first home. I quickly ran out of road with the spreadsheet I was using to track viewings, thoughts, and what I was actually looking for in a place. The spreadsheet wasn't the problem, it was the right instinct in the wrong tool, and that gap felt like something worth exploring with my own app.
+In early 2026 I started to explore buying my first home. I built a spreadsheet to track viewings, thoughts, and what I was actually looking for in a place. But it was tedious to use and not all that helpful in the moment of actually looking at properties in real time.
 
-Thus I created Sherlock, a SwiftUI iOS app for tracking properties, logging thoughts after viewings, and comparing everything against your own criteria. 
+I thought to myself, apps are just user-friendly tools for engaging with spreadsheets—so what if I just make my own? Thus Sherlock was born, a SwiftUI iOS app for tracking properties, logging thoughts during viewings, and comparing everything against my own criteria and circumstance. 
 
-It was also an opportunity to grow my familiaty and skills: native iOS had been a recurring topic at work and an area I didn't have a strong feel for, so I used this to learn more. I used it to force myself to find out where the native components stop being enough and improvisation takes over, I got familiar with directing an agent through Xcode, a build environment that's quite different from anything browser or desktop-based.
+It was also an opportunity to grow my familiarity and skills: native iOS components was an area I didn't have a strong feel for. Through the process of building Sherlock I forced myself to find out how they work together, what’s natural, and where I need to get creative. I also got familiar with directing an agent through Xcode, a build environment that I hadn’t yet tried.

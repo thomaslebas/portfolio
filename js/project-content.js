@@ -1,7 +1,8 @@
 // Parses a project markdown file (content/<contentDir>/<slug>.md) into a
 // generic block schema (meta, intro, stats, heading, paragraph, image, list,
-// note) rendered by js/project.js. Used by both Case studies
-// (content/case-studies/) and Side quests (content/side-projects/).
+// note) rendered by js/project.js. Used by Case studies
+// (content/case-studies/), Side quests (content/side-projects/), and the
+// Archive (content/archive/).
 // Convention:
 //
 //   # Title
@@ -10,6 +11,11 @@
 //   Year: 2025 — shown on the grid thumbnail, and prepended to Meta on the
 //   project page (e.g. "2025 · Design Vision · Product Strategy")
 //   Meta: line shown below the subline, on the project page only
+//   Thumbnail: image-slug — grid card image for listing pages that show
+//   real thumbnails (e.g. the Archive). Defaults to .jpg like inline images;
+//   give an extension yourself to use a different format. Optional —
+//   omit it for listings that use a placeholder instead (Case studies,
+//   Side quests).
 //
 // (Subline also doubles as the grid card's descriptor on the listing pages.
 // Write Subline, then Year, then Meta — in that order — so they combine and
@@ -42,6 +48,7 @@ function parseProjectMarkdown(text, slug, contentDir) {
   var title = '';
   var descriptor = '';
   var year = '';
+  var thumbnail = '';
   var body = [];
   var inSection = false;
 
@@ -101,6 +108,13 @@ function parseProjectMarkdown(text, slug, contentDir) {
       continue;
     }
 
+    if (/^Thumbnail:\s*/.test(line)) {
+      var thumbSlug = line.replace(/^Thumbnail:\s*/, '').trim();
+      thumbnail = /\.[a-zA-Z0-9]+$/.test(thumbSlug) ? thumbSlug : thumbSlug + '.jpg';
+      i++;
+      continue;
+    }
+
     if (/^Stats:\s*$/.test(line.trim())) {
       i++;
       skipBlankLines();
@@ -151,7 +165,13 @@ function parseProjectMarkdown(text, slug, contentDir) {
     body.push({ type: inSection ? 'paragraph' : 'intro', text: paragraph });
   }
 
-  return { title: title, descriptor: descriptor, year: year, body: body };
+  return {
+    title: title,
+    descriptor: descriptor,
+    year: year,
+    thumbnail: thumbnail ? 'images/' + contentDir + '/' + slug + '/' + thumbnail : '',
+    body: body
+  };
 }
 
 function resolveProjectContent(entry, contentDir) {

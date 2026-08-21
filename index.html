@@ -75,7 +75,6 @@
   <script src="js/data/case-studies.js"></script>
   <script src="js/data/side-projects.js"></script>
   <script src="js/data/archive.js"></script>
-  <script src="js/sort-projects.js"></script>
   <script src="js/project-content.js"></script>
   <script src="js/grid.js"></script>
   <script src="js/nav.js"></script>
@@ -111,12 +110,16 @@
         );
       });
 
-      renderGrid(
-        document.getElementById('archive-grid'),
-        sortProjectsByYear(archiveProjects),
-        'images/archive/',
-        { source: 'archive' }
-      );
+      Promise.all(archiveProjects.map(function (entry) {
+        return resolveProjectContent(entry, 'archive');
+      })).then(function (resolved) {
+        renderGrid(
+          document.getElementById('archive-grid'),
+          resolved,
+          '',
+          { source: 'archive' }
+        );
+      });
     });
   </script>
 </body>
