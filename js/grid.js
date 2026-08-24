@@ -1,4 +1,4 @@
-function renderGrid(container, projects, imageBasePath, options) {
+function renderGrid(container, projects, options) {
   if (!container || !projects) return;
 
   var opts = options || {};
@@ -22,7 +22,7 @@ function renderGrid(container, projects, imageBasePath, options) {
       if (project.thumbnail) {
         var img = document.createElement('img');
         img.className = 'project-card-image';
-        img.src = imageBasePath + project.thumbnail;
+        img.src = project.thumbnail;
         img.alt = '';
         img.loading = 'lazy';
         link.appendChild(img);
@@ -65,7 +65,7 @@ function renderGrid(container, projects, imageBasePath, options) {
     if (project.thumbnail) {
       var archiveImg = document.createElement('img');
       archiveImg.className = 'project-card-image';
-      archiveImg.src = imageBasePath + project.thumbnail;
+      archiveImg.src = project.thumbnail;
       archiveImg.alt = '';
       archiveImg.loading = 'lazy';
       card.appendChild(archiveImg);

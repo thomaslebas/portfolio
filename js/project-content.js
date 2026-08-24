@@ -11,11 +11,9 @@
 //   Year: 2025 — shown on the grid thumbnail, and prepended to Meta on the
 //   project page (e.g. "2025 · Design Vision · Product Strategy")
 //   Meta: line shown below the subline, on the project page only
-//   Thumbnail: image-slug — grid card image for listing pages that show
-//   real thumbnails (e.g. the Archive). Defaults to .jpg like inline images;
-//   give an extension yourself to use a different format. Optional —
-//   omit it for listings that use a placeholder instead (Case studies,
-//   Side quests).
+//   Thumbnail: image-slug — grid card image. Defaults to .jpg like inline
+//   images; give an extension yourself to use a different format. Optional —
+//   omit it to show a placeholder instead (typical for Case studies).
 //
 // (Subline also doubles as the grid card's descriptor on the listing pages.
 // Write Subline, then Year, then Meta — in that order — so they combine and
