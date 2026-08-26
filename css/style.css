@@ -261,11 +261,13 @@ main {
   transition: opacity 0.3s ease;
 }
 
-.home-intro.has-ripple {
+.home-intro.has-ripple,
+.home-intro.has-flag-wave {
   color: transparent;
 }
 
-.home-intro.has-ripple canvas {
+.home-intro.has-ripple canvas,
+.home-intro.has-flag-wave canvas {
   opacity: 1;
 }
 
