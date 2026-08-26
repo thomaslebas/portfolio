@@ -40,9 +40,7 @@
   <script src="js/auth.js"></script>
   <script src="js/nav.js"></script>
   <script>
-    caseStudiesAuth.requireAuth(document.getElementById('case-studies-content'));
-
-    document.addEventListener('DOMContentLoaded', function () {
+    function loadCaseStudiesGrid() {
       Promise.all(caseStudies.map(function (entry) {
         return resolveProjectContent(entry, 'case-studies');
       })).then(function (resolved) {
@@ -52,7 +50,12 @@
           { showDescriptor: true, source: 'case-studies' }
         );
       });
-    });
+    }
+
+    caseStudiesAuth.requireAuth(
+      document.getElementById('case-studies-content'),
+      loadCaseStudiesGrid
+    );
   </script>
 </body>
 </html>
