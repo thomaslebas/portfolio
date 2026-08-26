@@ -10,7 +10,7 @@ I thought to myself, apps are just user-friendly tools for engaging with spreads
 
 It was also an opportunity to grow my familiarity and skills: native iOS components was an area I didn't have a strong feel for. Through the process of building Sherlock I forced myself to find out how they work together, what’s natural, and where I need to get creative. I also got familiar with directing an agent through Xcode, a build environment that I hadn’t yet tried.
 
-![](sherlock-1.jpg)
-![](sherlock-1.jpg)
-![](sherlock-1.jpg)
-![](sherlock-1.jpg)
+![Saved properties, grouped by status so what's booked, still in play, and already seen is obvious at a glance.](sherlock-1.jpg)
+![Paste a listing URL and the details come in with it, so adding a place doesn't mean typing every field by hand.](sherlock-2.jpg)
+![Property details: notes, viewings, and a monthly estimate that updates against the asking price and my mortgage preferences.](sherlock-3.jpg)
+![Prompts for while I'm in the room, then a set of priorities to weigh the place against once I'm back out of it.](sherlock-4.jpg)

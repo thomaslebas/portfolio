@@ -641,10 +641,12 @@ h2.about-layout-heading {
 }
 
 .project-caption {
+  width: 50%;
+  margin-top: var(--space-xs);
+  margin-inline-start: 50%;
   font-size: var(--font-size-caption);
   font-weight: var(--font-weight-body);
   color: var(--color-muted);
-  margin-top: var(--space-xs);
 }
 
 .project-list {
@@ -901,5 +903,10 @@ a.project-card:hover {
   .project-stats {
     grid-template-columns: 1fr;
     gap: var(--space-sm);
+  }
+
+  .project-caption {
+    width: 100%;
+    margin-inline-start: 0;
   }
 }

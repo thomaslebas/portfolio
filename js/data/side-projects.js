@@ -4,9 +4,10 @@
 // its content lives entirely in the .md file. Editing an existing side quest
 // never requires touching this file.
 const sideProjects = [
+  { slug: 'sad-boy' },
   { slug: 'sherlock' },
   { slug: 'human-slop' },
-  { slug: 'sad-boy' },
+  
   { slug: 'lookback' },
   { slug: 'yeah-nah-maybe' },
   { slug: 'pokemon-fieldbook' }
